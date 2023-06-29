@@ -3,7 +3,6 @@ import Dashboard from "@/components/Organisms/Dashboard";
 import General from "@/components/Organisms/General";
 import Collections from "@/components/Organisms/Collections";
 import Users from "@/components/Organisms/Users";
-import useAdminStore from "@/hooks/store/useAdminStore";
 import useStore from "@/hooks/global/useStore";
 
 const Admin = () => {
@@ -21,7 +20,6 @@ const Admin = () => {
     }
   };
 
-  console.log({ sidenav });
   return (
     <AdminTemplate>
       <Content />

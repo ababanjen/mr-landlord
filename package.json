@@ -7,7 +7,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "prepare": "husky install"
   },
   "dependencies": {
     "@types/node": "20.3.2",
@@ -30,6 +31,8 @@
     "zustand": "^4.3.8"
   },
   "devDependencies": {
-    "@types/lodash": "^4.14.195"
+    "@types/lodash": "^4.14.195",
+    "husky": "^8.0.0",
+    "lint-staged": "^13.2.3"
   }
 }
