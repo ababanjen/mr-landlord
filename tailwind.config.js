@@ -10,11 +10,12 @@ module.exports = {
     extend: {
       colors: {
         default: "#626262",
-        warning: "#f55c5c",
-        success: "#19b397f2",
+        warning: "#ef9eae",
+        success: "#a0eee8",
+        primary: "#9ec1ee",
       },
     },
   },
   darkMode: "class",
-  plugins: [require("tw-elements/dist/plugin.cjs")]
+  plugins: [require("tw-elements/dist/plugin.cjs")],
 };

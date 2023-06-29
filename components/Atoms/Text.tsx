@@ -5,7 +5,7 @@ import { twMerge } from "tailwind-merge";
 const Text = ({ as = "span", children, className, onClick }: TextProps) => {
   if (isHeading(as)) {
     const classes = twMerge("text-default", className);
-    switch (lowerCase(as)) {
+    switch (as) {
       case "h1":
         return <h1 className={classes}>{children}</h1>;
       case "h2":
