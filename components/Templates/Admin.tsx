@@ -1,12 +1,11 @@
 import { BaseSyntheticEvent, ReactNode } from "react";
 import { SendSMS } from "@/helpers/requests/SMS";
-import Sidebar from "@/components/Organisms/Sidebar";
+import Sidenav from "@/components/Organisms/Sidenav";
 import Text from "@/components/Atoms/Text";
-import useAdminStore from "@/hooks/store/useAdminStore";
-import useShallow from "@/hooks/global/useShallow";
+import useStore from "@/hooks/global/useStore";
 
 const Admin = ({ children }: AdminTypes) => {
-  const sidenav = useShallow((state: any) => state.sidenav, [useAdminStore]);
+  const sidenav = useStore((state) => state.sidenav, ["admin"]);
 
   const sendMessage = async (e: BaseSyntheticEvent) => {
     e.preventDefault();
@@ -18,7 +17,7 @@ const Admin = ({ children }: AdminTypes) => {
 
   return (
     <div className="flex min-h-screen w-full">
-      <Sidebar />
+      <Sidenav />
       <div className="flex flex-col w-full overflow-auto p-4 gap-2">
         <div className="w-full">
           <Text as="h1" className="capitalize font-semibold">

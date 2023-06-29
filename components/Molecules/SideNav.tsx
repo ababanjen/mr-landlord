@@ -3,16 +3,13 @@ import { Sidenav } from "tw-elements";
 import { useRef } from "react";
 import useInitTE from "@/hooks/global/useInitTE";
 import Text from "@/components/Atoms/Text";
-import useAdminStore from "@/hooks/store/useAdminStore";
-import useShallow from "@/hooks/global/useShallow";
+import useStore from "@/hooks/global/useStore";
 
 const SideNav = () => {
   const sideNavRef = useRef(null);
   useInitTE({ Sidenav }, sideNavRef, { sidenavPosition: "unset" });
-  const setSidenav = useShallow(
-    (state: any) => state.setSidenav,
-    [useAdminStore]
-  );
+
+  const setSidenav = useStore((state) => state.setSidenav, ["admin"]);
 
   const onClickSidenav = (data: string) => setSidenav(data);
 
@@ -26,6 +23,7 @@ const SideNav = () => {
         data-te-sidenav-position="absolute"
         ref={sideNavRef}
       >
+        <div className="flex justify-center p-8 border-b-2">LOGO</div>
         <ul
           className="relative m-0 list-none px-[0.2rem]"
           data-te-sidenav-menu-ref
