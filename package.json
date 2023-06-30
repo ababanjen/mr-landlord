@@ -7,7 +7,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "prepare": "husky install"
   },
   "husky": {
     "hooks": {
@@ -42,7 +43,6 @@
     "eslint-plugin-n": "^15.7.0",
     "eslint-plugin-promise": "^6.1.1",
     "eslint-plugin-react": "^7.32.2",
-    "lint-staged": "^13.2.3",
     "prettier": "^2.8.8",
     "typescript": "^5.1.6"
   }
