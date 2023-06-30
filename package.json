@@ -7,13 +7,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
-    "prepare": "husky install"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
+    "lint": "next lint"
   },
   "dependencies": {
     "@types/node": "20.3.2",
