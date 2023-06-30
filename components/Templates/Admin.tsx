@@ -1,17 +1,17 @@
-import { BaseSyntheticEvent, ReactNode } from "react";
-import { SendSMS } from "@/helpers/requests/SMS";
-import Sidenav from "@/components/Organisms/Sidenav";
-import Text from "@/components/Atoms/Text";
-import useStore from "@/hooks/global/useStore";
+import { BaseSyntheticEvent, ReactNode } from 'react';
+import { SendSMS } from '@/helpers/requests/SMS';
+import Sidenav from '@/components/Organisms/Sidenav';
+import Text from '@/components/Atoms/Text';
+import useStore from '@/hooks/global/useStore';
 
 const Admin = ({ children }: AdminTypes) => {
-  const sidenav = useStore((state) => state.sidenav, ["admin"]);
+  const sidenav = useStore((state) => state.sidenav, ['admin']);
 
   const sendMessage = async (e: BaseSyntheticEvent) => {
     e.preventDefault();
     const res = await SendSMS({
-      phone: "+639430372709",
-      message: "Good night",
+      phone: '+639430372709',
+      message: 'Good night',
     });
   };
 
@@ -25,7 +25,7 @@ const Admin = ({ children }: AdminTypes) => {
           </Text>
         </div>
         <div className="h-auto text-white px-4 pt-8">
-          {children}
+          <div>{children}</div>
           <button className="p-y px-4  bg-green-500" onClick={sendMessage}>
             Send Msg
           </button>

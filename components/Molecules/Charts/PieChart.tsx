@@ -1,13 +1,13 @@
-"use client";
-import { Chart } from "tw-elements";
-import { useRef } from "react";
-import { radomColors } from "@/helpers/styles";
-import useInitTE from "@/hooks/global/useInitTE";
+'use client';
+import { Chart } from 'tw-elements';
+import { useRef } from 'react';
+import { radomColors } from '@/helpers/styles';
+import useInitTE from '@/hooks/global/useInitTE';
 
 const PieChart = ({ title, labels, datasets }: PieChartTypes) => {
   const canvasRef = useRef(null);
   const config = {
-    type: "pie",
+    type: 'pie',
     data: {
       labels,
       datasets: [
@@ -24,7 +24,7 @@ const PieChart = ({ title, labels, datasets }: PieChartTypes) => {
     <div>
       {title}
       <div className="mx-auto w-3/5 overflow-hidden">
-        <canvas id="bar-chart" ref={canvasRef}></canvas>
+        <canvas id="pie-chart" ref={canvasRef}></canvas>
       </div>
     </div>
   );

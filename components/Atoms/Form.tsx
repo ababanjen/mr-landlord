@@ -1,8 +1,12 @@
-import React from "react";
+import React from 'react';
 const Form = ({ children, onSubmit }: FormProps) => {
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    onSubmit(event);
+    try {
+      onSubmit(event);
+    } catch (error) {
+      console.info({ error });
+    }
   };
   return <form onSubmit={handleSubmit}>{children}</form>;
 };
