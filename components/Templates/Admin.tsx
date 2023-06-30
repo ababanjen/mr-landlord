@@ -3,9 +3,11 @@ import { SendSMS } from '@/helpers/requests/SMS';
 import Sidenav from '@/components/Organisms/Sidenav';
 import Text from '@/components/Atoms/Text';
 import useStore from '@/hooks/global/useStore';
+import useGetAdminInfo from '@/hooks/useGetAdminInfo';
 
 const Admin = ({ children }: AdminTypes) => {
   const sidenav = useStore((state) => state.sidenav, ['admin']);
+  useGetAdminInfo()
 
   const sendMessage = async (e: BaseSyntheticEvent) => {
     e.preventDefault();

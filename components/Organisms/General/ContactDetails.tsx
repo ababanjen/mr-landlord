@@ -19,13 +19,14 @@ const ContactDetails = ({ onEdit }: ContactDetailsTypes) => {
       email,
     },
   } = useStore((state) => state.general, ['admin']);
+
   return (
     <div className="relative px-4">
       <div className="absolute cursor-pointer right-[14px]" onClick={onEdit}>
         <PencilIcon className="hover:fill-current w-5" />
       </div>
       <div className="flex flex-col">
-        <Text className="font-semibold">{`${firstName} ${lastName}`}</Text>
+        <Text className="font-semibold capitalize">{`${firstName} ${lastName}`}</Text>
         <Text>{`${address}, ${zipCode} ${state}`}</Text>
         <Text>{country}</Text>
         <span className="flex gap-1 items-center">

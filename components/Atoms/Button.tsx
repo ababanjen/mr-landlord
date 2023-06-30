@@ -1,8 +1,8 @@
-import { twMerge } from 'tailwind-merge';
+import { twMerge } from "tailwind-merge";
 
 const Button = ({
-  label = '',
-  type = 'button',
+  label = "",
+  type = "button",
   children,
   className,
   autoFocus,
@@ -12,8 +12,8 @@ const Button = ({
   onClick,
 }: BtnProp) => {
   const inputClasses = twMerge(
-    'bg-primary-500 hover:bg-primary-600 text-white py-2 px-4 rounded',
-    className,
+    "bg-primary-500 hover:bg-primary-600 text-white py-2 px-4 rounded",
+    className
   );
 
   return (
@@ -43,7 +43,7 @@ export type BtnProp = {
   formNoValidate?: boolean | undefined;
   formTarget?: string | undefined;
   name?: string | undefined;
-  type?: 'submit' | 'reset' | 'button';
+  type?: "submit" | "reset" | "button";
   label?: string;
   children?: React.ReactNode | string;
   className?: string;
