@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable security/detect-object-injection */
 import { useEffect } from "react";
 import { keys, lowerCase } from "lodash";
