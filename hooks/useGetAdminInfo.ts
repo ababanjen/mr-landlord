@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable import/extensions */
 /* eslint-disable import/no-unresolved */
 import { useEffect } from "react";
@@ -12,7 +13,7 @@ const useGetAdminInfo = () => {
   };
   useEffect(() => {
     getData();
-  }, []);
+  }, [getData]);
 };
 
 export default useGetAdminInfo;

@@ -1,3 +1,4 @@
+/* eslint-disable security/detect-object-injection */
 import { useEffect } from "react";
 import { keys, lowerCase } from "lodash";
 import { initTE } from "tw-elements";
