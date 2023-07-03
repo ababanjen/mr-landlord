@@ -1,0 +1,20 @@
+{
+  "users": [
+    {
+      "id": "1",
+      "contact": {
+        "firstName": "JohnyXX",
+        "lastName": "Doe",
+        "address": "320 J. Marzan St, Sampaloc, Manila",
+        "state": "Metro Manila",
+        "zipCode": 1008,
+        "country": "Philippines",
+        "countryCode": "+63",
+        "phone": "2586122316",
+        "email": "wxtkymgsic@iubridge.com"
+      },
+      "users": [],
+      "collections": []
+    }
+  ]
+}

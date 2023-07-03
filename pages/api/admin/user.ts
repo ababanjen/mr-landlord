@@ -1,29 +1,30 @@
 import { type NextApiRequest, type NextApiResponse } from "next";
+import path from "path";
+import { readFile } from "fs/promises";
+import { toString } from "lodash";
 
-// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-export const tempUsers = [
-  {
-    id: "1",
-    contact: {
-      firstName: "John",
-      lastName: "Doe",
-      address: "320 J. Marzan St, Sampaloc, Manila",
-      state: "Metro Manila",
-      zipCode: 1008,
-      country: "Philippines",
-      countryCode: "+63",
-      phone: "2586122316",
-      email: "wxtkymgsic@iubridge.com",
-    },
-    users: [],
-    collections: [],
-  },
-];
+export const fetchUsers = async () => {
+  const filePath = path.join(process.cwd(), "pages/api/mock-db/test.json");
+  const jsonData: Buffer = await readFile(filePath);
+  return JSON.parse(toString(jsonData)).users;
+};
+
 export default function getUser(req: NextApiRequest, res: NextApiResponse) {
   const { id } = req.query;
-  const user = tempUsers.find(u => u.id === id);
-  res.json({
-    data: user,
-    success: true,
-  });
+  fetchUsers()
+    .then(results => {
+      const user = results.find(
+        (u: { id: string | string[] | undefined }) => u.id === id
+      );
+      res.json({
+        data: user ?? "Could not find user",
+        success: !!user,
+      });
+    })
+    .catch(err => {
+      res.json({
+        data: err,
+        success: false,
+      });
+    });
 }

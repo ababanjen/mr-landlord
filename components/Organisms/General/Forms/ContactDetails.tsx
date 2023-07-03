@@ -8,6 +8,7 @@ import InputLabel from "@/components/Molecules/InputLabel";
 import Button from "@/components/Atoms/Button";
 import useStore from "@/hooks/global/useStore";
 import { ContactDetailsTypes } from "@/components/Organisms/General/ContactDetails";
+import { updateAdminInfo } from "@/helpers/requests/admin/user";
 
 const ContactDetails = ({ onEdit }: ContactDetailsTypes) => {
   const { general, setGeneralContact } = useStore(state => state, ["admin"]);
@@ -18,9 +19,12 @@ const ContactDetails = ({ onEdit }: ContactDetailsTypes) => {
   }: React.ChangeEvent<HTMLInputElement>) =>
     setContact({ ...contact, [name]: value });
 
-  const onSubmit = () => {
-    setGeneralContact(contact);
-    onEdit(false);
+  const onSubmit = async () => {
+    const result = await updateAdminInfo(contact);
+    if (result.success) {
+      setGeneralContact(contact);
+      onEdit(false);
+    }
   };
 
   return (
