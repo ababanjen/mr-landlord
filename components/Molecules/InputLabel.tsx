@@ -1,11 +1,20 @@
-'use client';
-import React, { useState, useRef } from 'react';
-import Text from '@/components/Atoms/Text';
-import Input from '@/components/Atoms/Input';
-import { twMerge } from 'tailwind-merge';
-import { InputProps } from '@/components/Atoms/Input';
-import clsx from 'clsx';
-import Warning from '@/components/Atoms/Icons/Warning';
+"use client";
+
+/* eslint-disable import/no-unresolved */
+/* eslint-disable import/extensions */
+import React, { useState } from "react";
+import { twMerge } from "tailwind-merge";
+import clsx from "clsx";
+import Text from "@/components/Atoms/Text";
+import Input, { InputProps } from "@/components/Atoms/Input";
+import Warning from "@/components/Atoms/Icons/Warning";
+
+export type InputLabelProps = {
+  inputClasses?: string;
+  className?: string;
+  labelClasses?: string;
+  children?: React.ReactNode;
+} & InputProps;
 
 const InputLabel = ({
   labelClasses,
@@ -21,17 +30,17 @@ const InputLabel = ({
 }: InputLabelProps) => {
   const [focus, setFocus] = useState<boolean>(false);
   const [invalid, setInvalid] = useState<boolean>(false);
-  const [invalidMessage, setInvalidMessage] = useState<string>('');
-  const classes = twMerge('flex flex-col', className);
-  const textClasses = twMerge('flex focus:text-primary-500', labelClasses);
-  const fieldClasses = twMerge('', inputClasses);
+  const [invalidMessage, setInvalidMessage] = useState<string>("");
+  const classes = twMerge("flex flex-col", className);
+  const textClasses = twMerge("flex focus:text-primary-500", labelClasses);
+  const fieldClasses = twMerge("", inputClasses);
 
-  const getClasses = (classes: string) =>
+  const getClasses = (classesCopy: string) =>
     clsx({
-      [classes]: true,
-      'text-primary-500': !invalid && focus,
-      'text-label': !invalid && !focus,
-      'text-warning': invalid,
+      [classesCopy]: true,
+      "text-primary-500": !invalid && focus,
+      "text-label": !invalid && !focus,
+      "text-warning": invalid,
     });
 
   const handleFocus = () => setFocus(!focus);
@@ -43,7 +52,7 @@ const InputLabel = ({
   }: React.FocusEvent<HTMLInputElement>) => {
     if (valid) {
       setInvalid(false);
-      setInvalidMessage('');
+      setInvalidMessage("");
     }
     setFocus(!focus);
   };
@@ -60,7 +69,7 @@ const InputLabel = ({
   return (
     <div className={classes}>
       <Text as="label" className={getClasses(textClasses)}>
-        {children ?? name ?? ''}{' '}
+        {children ?? name ?? ""}{" "}
         {required && <span className="text-warning">*</span>}
       </Text>
       <Input
@@ -71,7 +80,7 @@ const InputLabel = ({
         placeholder={placeholder}
         className={clsx({
           [fieldClasses]: true,
-          'border border-warning border-solid focus:border-warning': invalid,
+          "border border-warning border-solid focus:border-warning": invalid,
         })}
         onFocus={handleFocus}
         onBlur={handleBlur}
@@ -81,7 +90,7 @@ const InputLabel = ({
       {invalid && (
         <span className="flex w-auto items-center mt-1 gap-[5px]">
           <Warning className="w-3 h-3" />
-          <Text className={getClasses('text-xs')}>{invalidMessage}</Text>
+          <Text className={getClasses("text-xs")}>{invalidMessage}</Text>
         </span>
       )}
     </div>
@@ -89,10 +98,3 @@ const InputLabel = ({
 };
 
 export default InputLabel;
-
-export type InputLabelProps = {
-  inputClasses?: string;
-  className?: string;
-  labelClasses?: string;
-  children?: React.ReactNode;
-} & InputProps;

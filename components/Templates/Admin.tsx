@@ -1,20 +1,26 @@
-import { BaseSyntheticEvent, ReactNode } from 'react';
-import { SendSMS } from '@/helpers/requests/SMS';
-import Sidenav from '@/components/Organisms/Sidenav';
-import Text from '@/components/Atoms/Text';
-import useStore from '@/hooks/global/useStore';
-import useGetAdminInfo from '@/hooks/useGetAdminInfo';
+/* eslint-disable import/no-unresolved */
+/* eslint-disable import/extensions */
+import { BaseSyntheticEvent, ReactNode } from "react";
+// import { SendSMS } from "@/helpers/requests/SMS";
+import Sidenav from "@/components/Organisms/Sidenav";
+import Text from "@/components/Atoms/Text";
+import useStore from "@/hooks/global/useStore";
+import useGetAdminInfo from "@/hooks/useGetAdminInfo";
+
+export type AdminTypes = {
+  children: ReactNode;
+};
 
 const Admin = ({ children }: AdminTypes) => {
-  const sidenav = useStore((state) => state.sidenav, ['admin']);
-  useGetAdminInfo()
+  const sidenav = useStore(state => state.sidenav, ["admin"]);
+  useGetAdminInfo();
 
   const sendMessage = async (e: BaseSyntheticEvent) => {
     e.preventDefault();
-    const res = await SendSMS({
-      phone: '+639430372709',
-      message: 'Good night',
-    });
+    // const res = await SendSMS({
+    //   phone: "+639430372709",
+    //   message: "Good night",
+    // });
   };
 
   return (
@@ -28,7 +34,11 @@ const Admin = ({ children }: AdminTypes) => {
         </div>
         <div className="h-auto text-white px-4 pt-8">
           <div>{children}</div>
-          <button className="p-y px-4  bg-green-500" onClick={sendMessage}>
+          <button
+            type="button"
+            className="p-y px-4  bg-green-500"
+            onClick={sendMessage}
+          >
             Send Msg
           </button>
         </div>
@@ -38,7 +48,3 @@ const Admin = ({ children }: AdminTypes) => {
 };
 
 export default Admin;
-
-export type AdminTypes = {
-  children: ReactNode;
-};

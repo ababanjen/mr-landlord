@@ -1,5 +1,7 @@
-import PieChart from '@/components/Organisms/Charts/PieChart';
-import Box from '@/components/Molecules/Containers/Box';
+/* eslint-disable import/no-unresolved */
+/* eslint-disable import/extensions */
+import PieChart from "@/components/Organisms/Charts/PieChart";
+import Box from "@/components/Molecules/Containers/Box";
 
 const Dashboard = () => {
   return (
@@ -9,17 +11,17 @@ const Dashboard = () => {
           title="Test1"
           datasets={{
             data: [2112, 3423, 2365, 1985, 987],
-            label: 'Test1',
+            label: "Test1",
           }}
         />
       </Box>
       <Box>
         <PieChart
           title="Test2"
-          labels={['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']}
+          labels={["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]}
           datasets={{
             data: [2112, 2343, 2545, 3423, 2365, 1985, 987],
-            label: 'Test2',
+            label: "Test2",
           }}
         />
       </Box>
@@ -30,7 +32,7 @@ const Dashboard = () => {
               title="Test3"
               datasets={{
                 data: [2112, 2365, 1985, 987],
-                label: 'Test3',
+                label: "Test3",
               }}
             />
           </div>
@@ -42,7 +44,7 @@ const Dashboard = () => {
           title="Test4"
           datasets={{
             data: [2112, 2365, 1985, 987],
-            label: 'Test4',
+            label: "Test4",
           }}
         />
       </Box>

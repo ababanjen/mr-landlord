@@ -1,9 +1,44 @@
-import React from 'react';
-import { twMerge } from 'tailwind-merge';
+import React from "react";
+import { twMerge } from "tailwind-merge";
+
+export type InputProps = {
+  className?: string;
+  type?:
+    | "button"
+    | "checkbox"
+    | "color"
+    | "date"
+    | "datetime-local"
+    | "email"
+    | "file"
+    | "hidden"
+    | "image"
+    | "month"
+    | "number"
+    | "password"
+    | "radio"
+    | "range"
+    | "reset"
+    | "search"
+    | "submit"
+    | "tel"
+    | "text"
+    | "time"
+    | "url"
+    | "week";
+  value?: string | number;
+  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onBlur?: (event: React.FocusEvent<HTMLInputElement>) => void;
+  onFocus?: (event: React.FocusEvent<HTMLInputElement>) => void;
+  onInvalid?: (event: React.InvalidEvent<HTMLInputElement>) => void;
+  placeholder?: string;
+  name?: string;
+  required?: boolean;
+};
 
 const Input = ({
   className,
-  type = 'text',
+  type = "text",
   value,
   onChange,
   placeholder,
@@ -14,8 +49,8 @@ const Input = ({
   onInvalid,
 }: InputProps) => {
   const inputClasses = twMerge(
-    'rounded p-2 text-disabled border-[0.5px] w-full border-disabled focus:outline-none focus:ring-0 focus:border-primary-500',
-    className,
+    "rounded p-2 text-disabled border-[0.5px] w-full border-disabled focus:outline-none focus:ring-0 focus:border-primary-500",
+    className
   );
 
   return (
@@ -32,41 +67,6 @@ const Input = ({
       onInvalid={onInvalid}
     />
   );
-};
-
-export type InputProps = {
-  className?: string;
-  type?:
-    | 'button'
-    | 'checkbox'
-    | 'color'
-    | 'date'
-    | 'datetime-local'
-    | 'email'
-    | 'file'
-    | 'hidden'
-    | 'image'
-    | 'month'
-    | 'number'
-    | 'password'
-    | 'radio'
-    | 'range'
-    | 'reset'
-    | 'search'
-    | 'submit'
-    | 'tel'
-    | 'text'
-    | 'time'
-    | 'url'
-    | 'week';
-  value?: any;
-  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  onBlur?: (event: React.FocusEvent<HTMLInputElement>) => void;
-  onFocus?: (event: React.FocusEvent<HTMLInputElement>) => void;
-  onInvalid?: (event: React.InvalidEvent<HTMLInputElement>) => void;
-  placeholder?: string;
-  name?: string;
-  required?: boolean;
 };
 
 export default Input;

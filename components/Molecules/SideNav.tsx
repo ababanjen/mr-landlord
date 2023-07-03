@@ -1,15 +1,20 @@
-'use client';
-import { Sidenav } from 'tw-elements';
-import { useRef } from 'react';
-import useInitTE from '@/hooks/global/useInitTE';
-import Text from '@/components/Atoms/Text';
-import useStore from '@/hooks/global/useStore';
+"use client";
+
+/* eslint-disable import/no-unresolved */
+/* eslint-disable import/extensions */
+import { Sidenav } from "tw-elements";
+import { useRef } from "react";
+import useInitTE from "@/hooks/global/useInitTE";
+import Text from "@/components/Atoms/Text";
+import useStore from "@/hooks/global/useStore";
+
+export const sidenavLinks = ["dashboard", "general", "collections", "users"];
 
 const SideNav = () => {
   const sideNavRef = useRef(null);
   useInitTE({ Sidenav }, sideNavRef, { sidenavWidth: 244 });
 
-  const setSidenav = useStore((state) => state.setSidenav, ['admin']);
+  const setSidenav = useStore(state => state.setSidenav, ["admin"]);
 
   const onClickSidenav = (data: string) => setSidenav(data);
 
@@ -28,11 +33,12 @@ const SideNav = () => {
           className="relative m-0 list-none px-[0.2rem]"
           data-te-sidenav-menu-ref
         >
-          {sidenavLinks.map((link, id) => (
+          {sidenavLinks.map(link => (
             <li
               className="relative"
-              key={`${link}-${id}`}
+              key={`${link}`}
               onClick={() => onClickSidenav(link)}
+              aria-hidden="true"
             >
               <a
                 className="flex h-12 cursor-pointer items-center truncate rounded-[5px] px-6 py-4 text-[0.875rem] text-gray-600 outline-none transition duration-300 ease-linear hover:bg-primary-500 hover:bg-opacity-[0.5] hover:text-inherit hover:outline-none focus:bg-primary focus:text-inherit focus:outline-none active:bg-slate-50 active:text-inherit active:outline-none data-[te-sidenav-state-active]:text-inherit data-[te-sidenav-state-focus]:outline-none motion-reduce:transition-none dark:text-gray-300 dark:hover:bg-white/10 dark:focus:bg-white/10 dark:active:bg-white/10"
@@ -49,5 +55,3 @@ const SideNav = () => {
 };
 
 export default SideNav;
-
-export const sidenavLinks = ['dashboard', 'general', 'collections', 'users'];

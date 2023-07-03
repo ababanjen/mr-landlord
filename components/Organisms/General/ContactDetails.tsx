@@ -1,9 +1,17 @@
-'use client';
-import Text from '@/components/Atoms/Text';
-import EmailIcon from '@/components/Atoms/Icons/Email';
-import PhoneIcon from '@/components/Atoms/Icons/Phone';
-import PencilIcon from '@/components/Atoms/Icons/Pencil';
-import useStore from '@/hooks/global/useStore';
+"use client";
+
+/* eslint-disable import/no-unresolved */
+/* eslint-disable import/extensions */
+import Text from "@/components/Atoms/Text";
+import EmailIcon from "@/components/Atoms/Icons/Email";
+import PhoneIcon from "@/components/Atoms/Icons/Phone";
+import PencilIcon from "@/components/Atoms/Icons/Pencil";
+import useStore from "@/hooks/global/useStore";
+
+export type ContactDetailsTypes = {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  onEdit: ([...arg]: any) => void;
+};
 
 const ContactDetails = ({ onEdit }: ContactDetailsTypes) => {
   const {
@@ -11,23 +19,27 @@ const ContactDetails = ({ onEdit }: ContactDetailsTypes) => {
       firstName,
       lastName,
       address,
-      state,
+      state: city,
       zipCode,
       country,
       countryCode,
       phone,
       email,
     },
-  } = useStore((state) => state.general, ['admin']);
+  } = useStore(state => state.general, ["admin"]);
 
   return (
     <div className="relative px-4">
-      <div className="absolute cursor-pointer right-[14px]" onClick={onEdit}>
+      <div
+        className="absolute cursor-pointer right-[14px]"
+        onClick={onEdit}
+        aria-hidden="true"
+      >
         <PencilIcon className="hover:fill-current w-5" />
       </div>
       <div className="flex flex-col">
         <Text className="font-semibold capitalize">{`${firstName} ${lastName}`}</Text>
-        <Text>{`${address}, ${zipCode} ${state}`}</Text>
+        <Text>{`${address}, ${zipCode} ${city}`}</Text>
         <Text>{country}</Text>
         <span className="flex gap-1 items-center">
           <EmailIcon className="w-5 h-5" />
@@ -43,7 +55,3 @@ const ContactDetails = ({ onEdit }: ContactDetailsTypes) => {
 };
 
 export default ContactDetails;
-
-export type ContactDetailsTypes = {
-  onEdit: ([...arg]: any) => void;
-};

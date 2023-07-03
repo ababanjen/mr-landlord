@@ -1,13 +1,16 @@
-'use client';
-import Form from '@/components/Atoms/Form';
-import InputLabel from '@/components/Molecules/InputLabel';
-import Button from '@/components/Atoms/Button';
-import useStore from '@/hooks/global/useStore';
-import { useState } from 'react';
-import { ContactDetailsTypes } from '@/components/Organisms/General/ContactDetails';
+"use client";
+
+/* eslint-disable import/no-unresolved */
+/* eslint-disable import/extensions */
+import React, { useState } from "react";
+import Form from "@/components/Atoms/Form";
+import InputLabel from "@/components/Molecules/InputLabel";
+import Button from "@/components/Atoms/Button";
+import useStore from "@/hooks/global/useStore";
+import { ContactDetailsTypes } from "@/components/Organisms/General/ContactDetails";
 
 const ContactDetails = ({ onEdit }: ContactDetailsTypes) => {
-  const { general, setGeneralContact } = useStore((state) => state, ['admin']);
+  const { general, setGeneralContact } = useStore(state => state, ["admin"]);
   const [contact, setContact] = useState(general.contact);
 
   const handleChange = ({

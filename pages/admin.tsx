@@ -1,3 +1,5 @@
+/* eslint-disable import/extensions */
+/* eslint-disable import/no-unresolved */
 import AdminTemplate from "@/components/Templates/Admin";
 import Dashboard from "@/components/Organisms/Dashboard";
 import General from "@/components/Organisms/General";
@@ -6,7 +8,7 @@ import Users from "@/components/Organisms/Users";
 import useStore from "@/hooks/global/useStore";
 
 const Admin = () => {
-  const sidenav = useStore((state) => state.sidenav, ["admin"]);
+  const sidenav = useStore(state => state.sidenav, ["admin"]);
   const Content = () => {
     switch (sidenav) {
       case "general":

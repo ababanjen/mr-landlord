@@ -1,6 +1,15 @@
+/* eslint-disable import/no-unresolved */
+/* eslint-disable import/extensions */
+import React from "react";
+import { twMerge } from "tailwind-merge";
 import Text, { TextProps } from "@/components/Atoms/Text";
 import Input, { InputProps } from "@/components/Atoms/Input";
-import { twMerge } from "tailwind-merge";
+
+export type CheckBoxProps = {
+  className?: string;
+  children?: React.ReactNode;
+} & TextProps &
+  InputProps;
 
 const CheckBox = ({
   className,
@@ -25,9 +34,3 @@ const CheckBox = ({
 };
 
 export default CheckBox;
-
-export type CheckBoxProps = {
-  className?: string;
-  children?: any;
-} & TextProps &
-  InputProps;

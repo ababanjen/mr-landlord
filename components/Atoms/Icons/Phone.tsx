@@ -1,13 +1,13 @@
-import { twMerge } from 'tailwind-merge';
+import { twMerge } from "tailwind-merge";
 
-const Phone = ({ className }: { className?: string }) => (
+const Phone = ({ className }: { className: string | undefined }) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     fill="none"
     viewBox="0 0 24 24"
     strokeWidth="1.5"
     stroke="currentColor"
-    className={twMerge('w-6 h-6 text-primary-500', className)}
+    className={twMerge("w-6 h-6 text-primary-500", className)}
   >
     <path
       strokeLinecap="round"

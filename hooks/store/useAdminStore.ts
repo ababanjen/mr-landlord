@@ -1,23 +1,4 @@
-import { create } from 'zustand';
-
-const useAdminStore = create((set) => ({
-  sidenav: 'dashboard',
-  general: null,
-  setSidenav: (data: string) => set(() => ({ sidenav: data })),
-  setGeneral: (data: any) =>
-    set((state: AdminStateTypes) => ({ ...state, general: data })),
-  setGeneralContact: (data: {}) =>
-    set((state: AdminStateTypes) => ({
-      ...state,
-      general: { ...state.general, contact: data },
-    })),
-}));
-
-export default useAdminStore;
-
-export type AdminStateTypes = {
-  sidenav: string;
-} & GeneralTypes;
+import { create } from "zustand";
 
 export type GeneralTypes = {
   general: {
@@ -37,3 +18,22 @@ export type GeneralTypes = {
     collections: [];
   };
 };
+
+export type AdminStateTypes = {
+  sidenav: string;
+} & GeneralTypes;
+
+const useAdminStore = create(set => ({
+  sidenav: "dashboard",
+  general: null,
+  setSidenav: (data: string) => set(() => ({ sidenav: data })),
+  setGeneral: (data: any) =>
+    set((state: AdminStateTypes) => ({ ...state, general: data })),
+  setGeneralContact: (data: object) =>
+    set((state: AdminStateTypes) => ({
+      ...state,
+      general: { ...state.general, contact: data },
+    })),
+}));
+
+export default useAdminStore;

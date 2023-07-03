@@ -1,8 +1,10 @@
-import Text from '@/components/Atoms/Text';
-import Box from '@/components/Molecules/Containers/Box';
-import ContactDetailsForm from '@/components/Organisms/General/Forms/ContactDetails';
-import ContactDetails from '@/components/Organisms/General/ContactDetails';
-import { useState } from 'react';
+/* eslint-disable import/no-unresolved */
+/* eslint-disable import/extensions */
+import { useState } from "react";
+import Text from "@/components/Atoms/Text";
+import Box from "@/components/Molecules/Containers/Box";
+import ContactDetailsForm from "@/components/Organisms/General/Forms/ContactDetails";
+import ContactDetails from "@/components/Organisms/General/ContactDetails";
 
 const General = () => {
   const [editContact, setEditContact] = useState<boolean>(false);
