@@ -1,3 +1,4 @@
+/* eslint-disable no-alert */
 import React from "react";
 
 export type FormProps = {
@@ -11,9 +12,7 @@ const Form = ({ children, onSubmit }: FormProps) => {
     try {
       onSubmit(event);
     } catch (error) {
-      // eslint-disable-next-line no-alert
       alert(error);
-      // console.info({ error });
     }
   };
   return <form onSubmit={handleSubmit}>{children}</form>;
