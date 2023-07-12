@@ -1,13 +1,20 @@
 /* eslint-disable sonarjs/no-duplicate-string */
 /* eslint-disable no-param-reassign */
 import React from "react";
+import { twMerge } from "tailwind-merge";
 
 type DraggableContainerTypes = {
   children: React.ReactNode;
   onDrop: (event: React.DragEvent<HTMLDivElement>, data: string) => void;
+  className?: string;
 };
 
-const DraggableContainer = ({ children, onDrop }: DraggableContainerTypes) => {
+const DraggableContainer = ({
+  children,
+  onDrop,
+  className,
+}: DraggableContainerTypes) => {
+  const classes = twMerge("w-full min-h-[5rem]", className);
   const onDragLeave = (event: React.DragEvent<HTMLDivElement>) => {
     const { currentTarget } = event;
     const newTarget = event.relatedTarget as HTMLDivElement;
@@ -40,7 +47,7 @@ const DraggableContainer = ({ children, onDrop }: DraggableContainerTypes) => {
 
   return (
     <div
-      className="w-full border border-solid"
+      className={classes}
       onDragLeave={onDragLeave}
       onDragEnter={onDragEnter}
       onDragEnd={onDragEnd}
@@ -57,8 +64,10 @@ export default DraggableContainer;
 type DraggableTypes = {
   children: React.ReactNode;
   id: string;
+  className?: string;
 };
-export const Draggable = ({ children, id }: DraggableTypes) => {
+export const Draggable = ({ children, id, className }: DraggableTypes) => {
+  const classes = twMerge("cursor-pointer", className);
   const onDragStart = (event: React.DragEvent<HTMLDivElement>) => {
     const element = event.currentTarget;
     element.classList.add("dragged");
@@ -69,7 +78,13 @@ export const Draggable = ({ children, id }: DraggableTypes) => {
     event.currentTarget.classList.remove("dragged");
 
   return (
-    <div id={id} onDragStart={onDragStart} onDragEnd={onDragEnd} draggable>
+    <div
+      className={classes}
+      id={id}
+      onDragStart={onDragStart}
+      onDragEnd={onDragEnd}
+      draggable
+    >
       {children}
     </div>
   );
