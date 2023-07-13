@@ -5,7 +5,6 @@ import Text from "@/components/Atoms/Text";
 import Box from "@/components/Molecules/Containers/Box";
 import ContactDetailsForm from "@/components/Organisms/General/Forms/ContactDetails";
 import ContactDetails from "@/components/Organisms/General/ContactDetails";
-import Scheduler from "@/components/Molecules/Scheduler";
 
 const General = () => {
   const [editContact, setEditContact] = useState<boolean>(false);
@@ -25,9 +24,6 @@ const General = () => {
             <ContactDetails onEdit={setEditContact} />
           )}
         </div>
-      </Box>
-      <Box className="w-full">
-        <Scheduler />
       </Box>
     </div>
   );
