@@ -8,8 +8,8 @@ const sched = [
   {
     id: "id-1",
     date: moment(),
-    startTime: moment("2023-07-01T00:00:00"),
-    endTime: moment("2023-07-01T10:15:00"),
+    startTime: moment("2023-07-07T00:00:00"),
+    endTime: moment("2023-07-07T10:15:00"),
     description: "Meeting with  Mike",
   },
   {
@@ -22,8 +22,8 @@ const sched = [
   {
     id: "id-3",
     date: moment(),
-    startTime: moment("2023-07-01T13:00:00"),
-    endTime: moment("2023-07-01T14:30:00"),
+    startTime: moment("2023-07-23T13:00:00"),
+    endTime: moment("2023-07-23T14:30:00"),
     description: "Meeting with Jes",
   },
 ];
@@ -38,7 +38,7 @@ const TestPage = () => {
     );
   };
   return (
-    <div className="h-[40rem] w-1/2  overflow-auto">
+    <div className="overflow-auto">
       <Scheduler schedules={schedules} date={moment()} onDrop={onDrop} />
     </div>
   );

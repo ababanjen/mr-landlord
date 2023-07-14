@@ -129,23 +129,20 @@ const Scheduler = ({ schedules, date: cDate, onDrop }: SchedulerTypes) => {
 
   return (
     <div className="flex">
-      <div className="flex flex-col">
+      <div className="flex flex-col bg-[#0d212b] text-white">
         <div className="flex flex-col py-5 " />
         {timeSlots.map(slot => (
           <div className="flex flex-col h-[5rem] " key={slot.id}>
-            <div className="border-l-2 p-2 min-w-[4rem] max-w-[4rem] flex justify-end items-center h-full">
+            <div className="p-2 min-w-[4rem] max-w-[4rem] flex justify-end items-center h-full">
               {slot.time.format("h a")}
             </div>
           </div>
         ))}
       </div>
-      <div className="flex flex-col w-full border border-solid overflow-auto bg-white">
+      <div className="flex flex-col w-full overflow-auto  bg-[#0d212b] text-white">
         <div className="flex">
           {dates.map(date => (
-            <div
-              key={date.format("DD")}
-              className="border-l-2 border-b-2 p-2 min-w-[6rem] flex"
-            >
+            <div key={date.format("DD")} className="p-2 min-w-[6rem] flex">
               <span className="w-full flex justify-center capitalize font-semibold">{`${date.format(
                 "MMM"
               )} ${date.format("DD")}`}</span>
@@ -153,7 +150,7 @@ const Scheduler = ({ schedules, date: cDate, onDrop }: SchedulerTypes) => {
           ))}
         </div>
         <div className="flex">
-          <div className="flex flex-col">
+          <div className="flex flex-col  bg-[#4e4e4e]">
             {timeSlots.map(slot => (
               <div className="flex" key={slot.id}>
                 {dates.map(date => {
@@ -172,13 +169,13 @@ const Scheduler = ({ schedules, date: cDate, onDrop }: SchedulerTypes) => {
                       className="flex relative"
                       key={date.format("MM-DD-YYYY")}
                     >
-                      <div className="border-l-2 flex flex-col min-h-[5rem] h-auto w-[6rem]">
+                      <div className="flex flex-col min-h-[5rem] h-auto w-[6rem]">
                         {reserved && id && (
                           <Draggable
                             id={id}
                             key={id}
                             className={clsx({
-                              "w-[6rem] absolute min-h-[6rem]": true,
+                              "w-[6rem] absolute min-h-[6rem] rounded": true,
                               "bg-orange-100 hover:bg-orange-200": reserved,
                             })}
                             style={style}
