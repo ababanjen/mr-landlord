@@ -65,8 +65,14 @@ type DraggableTypes = {
   children: React.ReactNode;
   id: string;
   className?: string;
+  style?: object;
 };
-export const Draggable = ({ children, id, className }: DraggableTypes) => {
+export const Draggable = ({
+  children,
+  id,
+  className,
+  style,
+}: DraggableTypes) => {
   const classes = twMerge("cursor-pointer", className);
   const onDragStart = (event: React.DragEvent<HTMLDivElement>) => {
     const element = event.currentTarget;
@@ -83,6 +89,7 @@ export const Draggable = ({ children, id, className }: DraggableTypes) => {
       id={id}
       onDragStart={onDragStart}
       onDragEnd={onDragEnd}
+      style={style}
       draggable
     >
       {children}

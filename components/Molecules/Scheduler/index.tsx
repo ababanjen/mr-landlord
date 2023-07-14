@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 /* eslint-disable sonarjs/no-duplicate-string */
 /* eslint-disable react/prop-types */
 /* eslint-disable import/no-extraneous-dependencies */
@@ -18,9 +19,9 @@ const timeSlots = [...Array(24)].map((_, key) => {
   };
 });
 
-const getDaysArray = (year: number, month: number) => {
-  const monthIndex = month - 1;
-  const date = new Date(year, monthIndex, 1);
+const getDaysArray = (year: string, month: string) => {
+  const monthIndex = parseInt(month, 10) - 1;
+  const date = new Date(parseInt(year, 10), monthIndex, 1);
   const result = [];
   while (date.getMonth() === monthIndex) {
     result.push(moment(date));
@@ -30,49 +31,101 @@ const getDaysArray = (year: number, month: number) => {
 };
 type SchedulesTypes = {
   id: string | number;
-  date: moment.Moment;
-  starTime: moment.Moment;
+  startTime: moment.Moment;
   endTime: moment.Moment;
   description: string;
+  date: moment.Moment;
 };
 type SchedulerTypes = {
   schedules: SchedulesTypes[];
+  date: moment.Moment;
+  onDrop: (event: DragEvent<HTMLDivElement>, value: any) => void;
 };
 
-const Scheduler = ({ schedules }: SchedulerTypes) => {
-  const dates = getDaysArray(2023, 7);
+const Scheduler = ({ schedules, date: cDate, onDrop }: SchedulerTypes) => {
+  const dates = getDaysArray(cDate.format("YYYY"), cDate.format("M"));
 
-  const onDrop = (
-    e: DragEvent<HTMLDivElement>,
-    d: boolean,
-    s: { id: number; time: any }
-  ) => console.log("HANDLE Drop", { e, d, s });
-
-  const isReserved = (
+  const findScheduleSlot = (
     currentDate: moment.Moment,
-    currentSlot: { id: number; time: moment.Moment }
+    scheduleDate: moment.Moment,
+    currentSlot: moment.Moment,
+    scheduleSlot: moment.Moment
   ) => {
-    const timeFormat = "hh:mm:ss a";
-    const formatDate = currentDate.format("MM-DD-YYYY");
-    let res;
-    schedules.forEach(sched => {
-      const schedDate = sched.endTime.format("MM-DD-YYYY");
-      const time = moment(currentSlot.time.format(timeFormat), timeFormat);
-      const start = moment(sched.starTime.format(timeFormat), timeFormat);
-      const end = moment(sched.endTime.format(timeFormat), timeFormat);
-      const hrSpan = moment.duration(end.diff(start)).asHours();
-      const reserved = time.isBetween(start, end);
-      if (reserved && formatDate === schedDate) {
-        res = {
-          reserved,
-          description: sched.description,
-          classes: `h-[${6 * hrSpan}rem]`,
-        };
-      }
-    });
-
-    return res ?? { reserved: false, description: "", classes: "" };
+    const timeFormat = "hh a";
+    const dateFormat = "MM-DD-YYYY";
+    const currentD = currentDate.format(dateFormat);
+    const schedD = scheduleDate.format(dateFormat);
+    const currentS = currentSlot.format(timeFormat);
+    const schedS = scheduleSlot.format(timeFormat);
+    return currentD === schedD && currentS === schedS;
   };
+
+  const getSchedule = (date: moment.Moment, slot: moment.Moment) =>
+    schedules.find(sched => {
+      return findScheduleSlot(date, sched.startTime, sched.startTime, slot);
+    }) ?? null;
+
+  const handleOnDrop = (
+    event: DragEvent<HTMLDivElement>,
+    slot: { id: number; time: moment.Moment },
+    date: moment.Moment
+  ) => {
+    event.preventDefault();
+    event.currentTarget.classList.remove("dragged-over");
+    const data = event.dataTransfer.getData("text/plain");
+    const formattedData = moment(data);
+    const prevSlot = getSchedule(formattedData, formattedData);
+    const hrSpan = moment
+      .duration(prevSlot?.endTime.diff(prevSlot.startTime))
+      .asHours();
+    const newSlotFormat = `${date.format("YYYY-MM-DD")}T${slot.time.format(
+      "HH:mm:ss"
+    )}`;
+    const newTime = moment(newSlotFormat);
+    const newStartTime = moment(newTime.creationData().input);
+    const newEndTime = newStartTime.add(hrSpan, "hours");
+
+    onDrop(event, {
+      ...prevSlot,
+      date,
+      startTime: moment(newStartTime.creationData().input),
+      endTime: newEndTime,
+    });
+  };
+
+  const getScheduleDate = (
+    currentDate: moment.Moment,
+    currentSlot: { id: number; time: moment.Moment },
+    schedule: SchedulesTypes | null
+  ) => {
+    const defaultRes = { reserved: false, schedule: null, style: {} };
+    if (!schedule) return defaultRes;
+    const timeFormat = "hh:mm:ss a";
+    let res;
+    const start = moment(schedule.startTime.format(timeFormat), timeFormat);
+    const end = moment(schedule.endTime.format(timeFormat), timeFormat);
+    const hrSpan = moment.duration(end.diff(start)).asHours();
+    if (
+      findScheduleSlot(
+        currentDate,
+        schedule.startTime,
+        currentSlot.time,
+        schedule.startTime
+      )
+    ) {
+      res = {
+        reserved: true,
+        schedule,
+        style: {
+          height: `${6 * hrSpan}rem`,
+        },
+      };
+    }
+    return res ?? defaultRes;
+  };
+
+  const getDescription = (sched: SchedulesTypes | null) =>
+    sched ? sched.description : "";
 
   return (
     <div className="flex">
@@ -103,42 +156,49 @@ const Scheduler = ({ schedules }: SchedulerTypes) => {
           <div className="flex flex-col">
             {timeSlots.map(slot => (
               <div className="flex" key={slot.id}>
-                <Container onDrop={e => onDrop(e, true, slot)} className="flex">
-                  {dates.map(date => {
-                    const { reserved, description, classes } = isReserved(
-                      date,
-                      slot
-                    );
-
-                    return (
-                      <div
-                        key={date.format("MM-DD-YYYY")}
-                        className="border-l-2 flex flex-col min-h-[5rem] h-auto w-[6rem]"
-                      >
-                        <Draggable
-                          id={slot.time + date.format("MM-DD-YYYY")}
-                          key={`${date.date}`}
-                          className={clsx({
-                            "w-[6rem] absolute min-h-[6rem]": true,
-                            "bg-orange-100 hover:bg-orange-200": reserved, // TODO
-                            [classes]: true,
-                          })}
-                        >
-                          <div className="w-full">
-                            <span
-                              className={clsx({
-                                "text-black text-xs p-2": true, // truncate block
-                                hidden: !reserved,
-                              })}
-                            >
-                              {description}
-                            </span>
-                          </div>
-                        </Draggable>
+                {dates.map(date => {
+                  const sched = getSchedule(date, slot.time);
+                  const { reserved, style } = getScheduleDate(
+                    date,
+                    slot,
+                    sched
+                  );
+                  const id = `${moment(sched?.startTime).format(
+                    "YYYY-MM-DD"
+                  )}T${moment(sched?.startTime).format("HH:mm:ss")}`;
+                  return (
+                    <Container
+                      onDrop={e => handleOnDrop(e, slot, date)}
+                      className="flex relative"
+                      key={date.format("MM-DD-YYYY")}
+                    >
+                      <div className="border-l-2 flex flex-col min-h-[5rem] h-auto w-[6rem]">
+                        {reserved && id && (
+                          <Draggable
+                            id={id}
+                            key={id}
+                            className={clsx({
+                              "w-[6rem] absolute min-h-[6rem]": true,
+                              "bg-orange-100 hover:bg-orange-200": reserved,
+                            })}
+                            style={style}
+                          >
+                            <div className="w-full p-2">
+                              <span
+                                className={clsx({
+                                  "text-black text-xs": true, // truncate block
+                                  hidden: !reserved,
+                                })}
+                              >
+                                {getDescription(sched)}
+                              </span>
+                            </div>
+                          </Draggable>
+                        )}
                       </div>
-                    );
-                  })}
-                </Container>
+                    </Container>
+                  );
+                })}
               </div>
             ))}
           </div>
